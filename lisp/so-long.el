@@ -449,7 +449,8 @@
 (require 'cl-lib)
 
 (add-to-list 'customize-package-emacs-version-alist
-             '(so-long ("1.1" . "28.1")))
+             '(so-long ("1.0" . "27.1")
+                       ("1.1" . "28.1")))
 
 (defconst so-long--latest-version "1.1")
 
