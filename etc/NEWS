@@ -1877,6 +1877,13 @@ could have saved enough typing by using an abbrev, a hint will be
 displayed in the echo area, mentioning the abbrev that could have been
 used instead.
 
+** So Long
+
+---
+*** 'so-long-threshold' and 'so-long-max-lines' have been raised to
+10000 characters and 500 lines respectively, to reduce the likelihood
+of false-positives when 'global-so-long-mode' is enabled.
+
 
 * New Modes and Packages in Emacs 28.1
 
