@@ -43,7 +43,8 @@
     (cl-case action
       ('so-long-mode
        (should (eq major-mode 'so-long-mode))
-       (so-long-tests-assert-overrides))
+       (so-long-tests-assert-overrides)
+       (so-long-tests-assert-preserved-modes-enabled))
       ('so-long-minor-mode
        (should (eq so-long-minor-mode t))
        (so-long-tests-assert-overrides))
@@ -62,7 +63,8 @@
     (cl-case action
       ('so-long-mode
        (should-not (eq major-mode 'so-long-mode))
-       (so-long-tests-assert-overrides-reverted))
+       (so-long-tests-assert-overrides-reverted)
+       (so-long-tests-assert-preserved-modes-enabled))
       ('so-long-minor-mode
        (should-not (eq so-long-minor-mode t))
        (so-long-tests-assert-overrides-reverted))
@@ -90,6 +92,12 @@
     (when (boundp (car ovar))
       (should (equal (symbol-value (car ovar)) (cdr ovar))))))
 
+(defun so-long-tests-assert-preserved-modes-enabled ()
+  "Assert that 'preserved' minor modes are still enabled."
+  (dolist (mode (so-long-original 'so-long-mode-preserved-minor-modes))
+    (when (and (boundp mode))
+      (should-not (eq mode nil)))))
+
 (defun so-long-tests-remember ()
   "Remember the original states of modes and variables.
 
@@ -105,6 +113,14 @@ state against this remembered state."
       (push (cons (car ovar) (symbol-value (car ovar)))
             so-long-tests-memory)))
   (dolist (mode so-long-minor-modes)
+    (when (boundp mode)
+      (push (cons mode (symbol-value mode))
+            so-long-tests-memory)))
+  (dolist (var so-long-mode-preserved-variables)
+    (when (boundp var)
+      (push (cons var (symbol-value var))
+            so-long-tests-memory)))
+  (dolist (mode so-long-mode-preserved-minor-modes)
     (when (boundp mode)
       (push (cons mode (symbol-value mode))
             so-long-tests-memory))))
