@@ -1884,6 +1884,13 @@ used instead.
 10000 characters and 500 lines respectively, to reduce the likelihood
 of false-positives when 'global-so-long-mode' is enabled.
 
+---
+*** 'so-long-target-modes' now includes 'fundamental-mode' by default,
+meaning that 'global-so-long-mode' will also process files which were
+not recognised.  (This only has an effect if 'set-auto-mode' chooses
+'fundamental-mode'; buffers which are simply in 'fundamental-mode' by
+default are unaffected.)
+
 
 * New Modes and Packages in Emacs 28.1
 
